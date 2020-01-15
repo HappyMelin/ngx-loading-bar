@@ -1,4 +1,4 @@
-import { TestBed, inject, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 
 import { LoadingBarService } from './loading-bar.service';
 import { Subscription } from 'rxjs';
@@ -26,18 +26,33 @@ describe('LoadingBarService', () => {
 
   it('should ignore complete if not started', fakeAsync(() => {
     loader.complete();
-    expect(progessValue).toBeUndefined();
+    expect(progessValue).toEqual(0);
   }));
 
   it('should not start if in server platform', fakeAsync(() => {
     loader = new LoadingBarService(ɵPLATFORM_SERVER_ID);
     loader.start();
     tick();
-    expect(progessValue).toEqual(undefined);
+    expect(progessValue).toEqual(0);
 
     loader.set(10);
     tick();
-    expect(progessValue).toEqual(undefined);
+    expect(progessValue).toEqual(0);
+  }));
+
+  it('should prevent start when the timer is not triggered yet', fakeAsync(() => {
+    loader = new LoadingBarService(ɵPLATFORM_SERVER_ID);
+    loader.start();
+    loader.complete();
+    expect(progessValue).toEqual(0);
+
+
+    loader.start();
+    loader.stop();
+    expect(progessValue).toEqual(0);
+
+    tick();
+    expect(progessValue).toEqual(0);
   }));
 
   it('should allow setting an initial starter value', fakeAsync(() => {
@@ -69,11 +84,24 @@ describe('LoadingBarService', () => {
     tick(500);
   }));
 
-  it('should increment the progress value when started', fakeAsync(() => {
+  it('should not auto increment if not started', fakeAsync(() => {
+    loader.set(50);
+    loader.increment(10);
+    tick();
+    expect(progessValue).toEqual(60);
+    tick(250);
+    expect(progessValue).toEqual(60);
+
+    tick(500);
+  }));
+
+  it('should auto increment the progress value when started', fakeAsync(() => {
     loader.set(50);
     loader.start();
     loader.increment(10);
     tick();
+    expect(progessValue).toEqual(60);
+    tick(250);
     expect(progessValue).toBeGreaterThan(60);
     loader.complete();
 
@@ -98,6 +126,7 @@ describe('LoadingBarService', () => {
   it('should stop all pending requests', fakeAsync(() => {
     loader.start();
     loader.start();
+    tick();
 
     loader.stop();
     tick();
@@ -112,7 +141,7 @@ describe('LoadingBarService', () => {
     loader.start();
 
     tick(500);
-    expect(progessValue).toBe(2);
+    expect(progessValue).toBeGreaterThan(2);
 
 
     loader.complete();

@@ -1,11 +1,19 @@
-# @ngx-loading-bar
+<div align="center">
+  <h2>@ngx-loading-bar</h2>
+  <br />
+  A fully automatic loading bar with zero configuration for Angular app (http, http-client and router).
+  <br /><br />
 
-A fully automatic loading bar with zero configuration for Angular app (http, http-client and router).
+  [![Npm version](https://badge.fury.io/js/%40ngx-loading-bar%2Fcore.svg)](https://npmjs.org/package/@ngx-loading-bar/core)
+  [![Downloads](https://img.shields.io/npm/dm/@ngx-loading-bar/core.svg)](https://npmjs.org/package/@ngx-loading-bar/core)
+  [![Build Status](https://api.travis-ci.org/aitboudad/ngx-loading-bar.svg?branch=master)](https://api.travis-ci.org/aitboudad/ngx-loading-bar.svg?branch=master)
+</div>
+
+---
 
 ## Packages
 - [@ngx-loading-bar/router](./packages/router/README.md) - Display loading bar when navigating between routes.
 - [@ngx-loading-bar/http-client](./packages/http-client/README.md) - Display the progress of your `@angular/common/http` requests.
-- [@ngx-loading-bar/http](./packages/http/README.md) - Display the progress of your `@angular/http` requests.
 - [@ngx-loading-bar/core](./packages/core/README.md) - Core module to manage the progress bar manually.
 
 ## Demo
@@ -30,13 +38,10 @@ Table of contents
 
 ```bash
   # if you use `@angular/common/http`
-  npm install @ngx-loading-bar/http-client --save
-
-  # if you use `@angular/http`
-  npm install @ngx-loading-bar/http --save
+  npm install @ngx-loading-bar/core @ngx-loading-bar/http-client --save
 
   # if you use `@angular/router`
-  npm install @ngx-loading-bar/router --save
+  npm install @ngx-loading-bar/core @ngx-loading-bar/router --save
 
   # to manage loading-bar manually
   npm install @ngx-loading-bar/core --save
@@ -48,16 +53,14 @@ Table of contents
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// for HttpClient import:
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
-// for Http import LoadingBarHttpModule:
-// import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
+// for Router import:
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
-// for Router import LoadingBarRouterModule:
-// import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-
-// for Core import LoadingBarModule:
-// import { LoadingBarModule } from '@ngx-loading-bar/core';
+// for Core import:
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { AppComponent } from './app';
 
@@ -66,19 +69,14 @@ import { AppComponent } from './app';
   imports: [
     ...
 
-    LoadingBarHttpClientModule
-
-    // for Http use:
-    // LoadingBarHttpModule,
+    // for HttpClient use:
+    LoadingBarHttpClientModule,
 
     // for Router use:
-    // LoadingBarRouterModule
-
-    // for HttpClient use:
-    // LoadingBarHttpClientModule
+    LoadingBarRouterModule,
 
     // for Core use:
-    // LoadingBarModule.forRoot()
+    LoadingBarModule
   ],
 })
 export class AppModule {}
@@ -130,13 +128,18 @@ httpClient.get('/status', {
 });
 ```
 
-#### http:
+#### router:
+
+- using the `router.navigateByUrl()` method:
 
 ```ts
-// ignore a particular $http GET:
-http.get('/status', {
-  { headers: new Headers({ ignoreLoadingBar: '' }) }
-});
+this.router.navigateByUrl('/custom-path', { state: { ignoreLoadingBar: true } });
+```
+
+- using the `routerLink` directive:
+
+```html
+<a routerLink="/custom-path" [state]="{ ignoreLoadingBar: true }">Go</a>
 ```
 
 ## Manually manage loading service 
@@ -204,6 +207,10 @@ export class App {
   constructor(public loader: LoadingBarService) {}
 }
 ```
+
+## Lazy Loading modules
+
+If you're using Lazy Loaded Modules in your app, please use LoadingBarRouterModule, because although a request is being fired in the nework console to fetch your lazy load module.js file, it won't trigger the LoadingBarHttpClientModule.
 
 # Credits 
 

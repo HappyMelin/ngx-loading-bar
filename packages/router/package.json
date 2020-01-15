@@ -8,12 +8,8 @@
     "url": "https://github.com/aitboudad/ngx-loading-bar.git",
     "type": "git"
   },
-  "dependencies": {
-    "tslib": "^1.7.1",
-    "@ngx-loading-bar/core": "LOADING-BAR-VERSION"
-  },
   "peerDependencies": {
-    "@angular/router": ">=5.0.0",
-    "rxjs": "^5.6.0-forward-compat.0 || ^6.0.0-beta.0"
+    "@ngx-loading-bar/core": "LOADING-BAR-VERSION",
+    "@angular/router": ">=7.0.0"
   }
 }

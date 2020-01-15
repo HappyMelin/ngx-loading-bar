@@ -5,7 +5,7 @@ import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
 @NgModule({
   imports: [
     RouterModule,
-    LoadingBarModule.forRoot(),
+    LoadingBarModule,
   ],
   exports: [
     RouterModule,
@@ -13,15 +13,30 @@ import { LoadingBarModule, LoadingBarService } from '@ngx-loading-bar/core';
   ],
 })
 export class LoadingBarRouterModule {
-  constructor(router: Router, loadingBar: LoadingBarService) {
+  constructor(router: Router, loader: LoadingBarService) {
     router.events.subscribe(event => {
+      const navState = this.getCurrentNavigationState(router);
+      if (navState && navState.ignoreLoadingBar) {
+        return;
+      }
+
       if (event instanceof NavigationStart) {
-        loadingBar.start();
+        loader.start();
       }
 
       if ((event instanceof NavigationError || event instanceof NavigationEnd || event instanceof NavigationCancel)) {
-        loadingBar.complete();
+        loader.complete();
       }
     });
+  }
+
+  private getCurrentNavigationState(router: any) {
+    // `getCurrentNavigation` only available in angular `7.2`
+    const currentNavigation = router.getCurrentNavigation && router.getCurrentNavigation();
+    if (currentNavigation && currentNavigation.extras) {
+      return currentNavigation.extras.state;
+    }
+
+    return {};
   }
 }

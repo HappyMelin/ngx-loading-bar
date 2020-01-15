@@ -2,6 +2,85 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/aitboudad/ngx-loading-bar/compare/v4.1.1...v4.2.0) (2019-02-28)
+
+
+### Features
+
+* 🎸 add RTL support ([#119](https://github.com/aitboudad/ngx-loading-bar/issues/119)) ([a93b7d0](https://github.com/aitboudad/ngx-loading-bar/commit/a93b7d0)), closes [#118](https://github.com/aitboudad/ngx-loading-bar/issues/118)
+
+
+
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/aitboudad/ngx-loading-bar/compare/v4.1.0...v4.1.1) (2019-01-18)
+
+
+### Bug Fixes
+
+* **router:** ensure currentNavigation is defined ([#116](https://github.com/aitboudad/ngx-loading-bar/issues/116)) ([eb72642](https://github.com/aitboudad/ngx-loading-bar/commit/eb72642))
+
+
+
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/aitboudad/ngx-loading-bar/compare/v4.0.0...v4.1.0) (2019-01-18)
+
+
+### Features
+
+* allow ignoring loading-bar for particular router ([#115](https://github.com/aitboudad/ngx-loading-bar/issues/115)) ([c00b16e](https://github.com/aitboudad/ngx-loading-bar/commit/c00b16e))
+
+
+
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/aitboudad/ngx-loading-bar/compare/v4.0.0-alpha.0...v4.0.0) (2019-01-01)
+
+
+
+<a name="4.0.0-alpha.0"></a>
+# [4.0.0-alpha.0](https://github.com/aitboudad/ngx-loading-bar/compare/v3.0.0...v4.0.0-alpha.0) (2019-01-01)
+
+
+### Features
+
+* move [@ngx-loading-bar](https://github.com/ngx-loading-bar)/core to peerDependencies ([#113](https://github.com/aitboudad/ngx-loading-bar/issues/113)) ([64bb66c](https://github.com/aitboudad/ngx-loading-bar/commit/64bb66c)), closes [#111](https://github.com/aitboudad/ngx-loading-bar/issues/111)
+* remove deprecated forRoot ([#112](https://github.com/aitboudad/ngx-loading-bar/issues/112)) ([51e450a](https://github.com/aitboudad/ngx-loading-bar/commit/51e450a))
+
+
+### BREAKING CHANGES
+
+* `@ngx-loading-bar/core` has been moved to peerDependencies which require to install the dependency by yourself:
+
+Before:
+```bash
+npm install @ngx-loading-bar/http-client --save
+```
+
+After:
+```bash
+npm install @ngx-loading-bar/core @ngx-loading-bar/http-client --save
+```
+
+* the `forRoot` method on `LoadingBarModule` has been removed.
+
+
+
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/aitboudad/ngx-loading-bar/compare/v2.2.0...v3.0.0) (2018-11-22)
+
+
+### Features
+
+* deprecate forRoot calls ([#109](https://github.com/aitboudad/ngx-loading-bar/issues/109)) ([546db1e](https://github.com/aitboudad/ngx-loading-bar/commit/546db1e))
+* set peerDependency to angular >=7.0 ([#108](https://github.com/aitboudad/ngx-loading-bar/issues/108)) ([7e72b38](https://github.com/aitboudad/ngx-loading-bar/commit/7e72b38))
+
+
+### BREAKING CHANGES
+
+* The library now requires Angular 7
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/aitboudad/ngx-loading-bar/compare/v2.1.2...v2.2.0) (2018-08-25)
 
